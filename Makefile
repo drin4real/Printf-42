@@ -1,6 +1,5 @@
-SRCS = ${wildcard *.c}\
-						$(addprefix printf_utils/, ft_printf_utils1.c\
-																	ft_printf_utils2.c)
+PRINTF_UTILS_PATH = ./printf_utils
+SRCS = ${wildcard *.c} ${wildcard ${PRINTF_UTILS_PATH}/*.c}
 OBJS = ${SRCS:.c=.o}
 
 NAME = libftprintf.a
