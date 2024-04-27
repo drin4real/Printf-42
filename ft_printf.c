@@ -12,25 +12,29 @@
 
 #include "ft_printf.h"
 
-static void	manage_format(char c, va_list arg, int *printed)
+static int	manage_format(char c, va_list arg)
 {
+	long	p;
+
 	if (c == 'c')
-		*printed += ft_putchar(va_arg(arg, int));
+		return (ft_putchar(va_arg(arg, int)));
 	else if (c == 's')
-		*printed += ft_putstr(va_arg(arg, char *));
+		return (ft_putstr(va_arg(arg, char *)));
 	else if (c == 'd' || c == 'i')
-		*printed += ft_putnbr(va_arg(arg, int));
+		return (ft_putnbr(va_arg(arg, int)));
 	else if (c == 'u')
-		*printed += ft_putuinbr(va_arg(arg, unsigned int));
+		return (ft_putuinbr(va_arg(arg, unsigned int)));
 	else if (c == 'p')
 	{
-		write(1, "0x", 2);
-		*printed += ft_putnbr_hexa(va_arg(arg, long), c) + 2;
+		p = va_arg(arg, long);
+		if (p == 0)
+			return (ft_putstr("(nil)"));
+		else
+			return (ft_putstr("0x") + ft_putnbrhex(p, c, 0));
 	}
 	else if (c == 'x' || c == 'X')
-		*printed += ft_putnbr_hexa(va_arg(arg, long), c);
-	else if (c == '%')
-		*printed += ft_putchar('%');
+		return (ft_putnbrhex(va_arg(arg, long long), c, 0));
+	return (ft_putchar('%'));
 }
 
 static int	analyse_the_string(const char *s, va_list arg)
@@ -42,13 +46,16 @@ static int	analyse_the_string(const char *s, va_list arg)
 	printed_char = 0;
 	while (s[i])
 	{
-		if (s[i] == '%' && ft_strchr("cspdiuxX%", s[i + 1]) != NULL)
+		while (s[i] == '%' && ft_strchr("cspdiuxX%", s[i + 1]) != NULL)
 		{
-			manage_format(s[++i], arg, &printed_char);
+			printed_char += manage_format(s[++i], arg);
 			i++;
 		}
-		write(1, &s[i++], 1);
-		printed_char++;
+		if (s[i])
+		{
+			write(1, &s[i++], 1);
+			printed_char++;
+		}
 	}
 	return (printed_char);
 }
@@ -63,31 +70,3 @@ int	ft_printf(const char *s, ...)
 	va_end(ap);
 	return (printed_char);
 }
-/*
-int	main(void)
-{
-	char *str = "Vere nec si meo adulescenti meo hac existimare descensurum";
-	int nb = -2147483648;
-	int n = 846599;
-	char c = 'q';
-
-	printf("bytes : %d\n", ft_printf("MINE (%%s)> %s,\n", str));
-	printf("bytes : %d\n\n", printf("REAL (%%s)> %s,\n", str));
-	printf("bytes : %d\n", ft_printf("MINE (%%d)> %d,\n", nb));
-	printf("bytes : %d\n\n", printf("REAL (%%d)> %d,\n", nb));
-	printf("bytes : %d\n", ft_printf("MINE (%%i)> %i,\n", nb));
-	printf("bytes : %d\n\n", printf("REAL (%%i)> %i,\n", nb));
-	printf("bytes : %d\n", ft_printf("MINE (%%u)> %u,\n", nb));
-	printf("bytes : %d\n\n", printf("REAL (%%u)> %u,\n", nb));
-	printf("bytes : %d\n", ft_printf("MINE (%%x)> %x,\n", n));
-	printf("bytes : %d\n\n", printf("REAL (%%x)> %x,\n", n));
-	printf("bytes : %d\n", ft_printf("MINE (%%X)> %X,\n", n));
-	printf("bytes : %d\n\n", printf("REAL (%%X)> %X,\n", n));
-	printf("bytes : %d\n", ft_printf("MINE (%%p)> %p,\n", &nb));
-	printf("bytes : %d\n\n", printf("REAL (%%p)> %p,\n", &nb));
-	printf("bytes : %d\n", ft_printf("MINE (%%c)> %c,\n", c));
-	printf("bytes : %d\n\n", printf("REAL (%%c)> %c,\n", c));
-	printf("bytes : %d\n", ft_printf("MINE (%%)> %%,\n"));
-	printf("bytes : %d\n\n", printf("REAL (%%)> %%,\n"));
-//gcc ft_printf.c printf_utils/ft_printf_utils1.c printf_utils/ft_printf_utils2.c
-}*/

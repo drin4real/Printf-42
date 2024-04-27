@@ -12,19 +12,38 @@
 
 #include "../ft_printf.h"
 
-int	ft_putnbr_hexa(unsigned long nb, char c)
+int	manage_limits(long long nb, char c)
 {
-	int		len;
+	if (c == 'p' && nb == LONG_MIN)
+		return (ft_putstr("8000000000000000"));
+	else if (c == 'p' && nb == (long long)ULONG_MAX)
+		return (ft_putstr("ffffffffffffffff"));
+	else if ((nb == LONG_MAX || nb == (long long)ULONG_MAX) && c == 'X')
+		return (ft_putstr("FFFFFFFF"));
+	else if ((nb == LONG_MAX || nb == (long long)ULONG_MAX) && c == 'x')
+		return (ft_putstr("ffffffff"));
+	return (ft_putchar('0'));
+}
+
+int	ft_putnbrhex(long long nb, char c, int i)
+{
 	char	*base;
+	int		len;
 
 	len = 0;
+	if ((c == 'p' && (nb == LONG_MIN || nb == (long long)ULONG_MAX))
+		|| (c != 'p' && (nb == LONG_MAX || nb == LONG_MIN
+				|| nb == (long long)ULONG_MAX)))
+		return (manage_limits(nb, c));
+	else if (i == 8 && c != 'p')
+		return (0);
 	if (c == 'X')
 		base = "0123456789ABCDEF";
 	else
 		base = "0123456789abcdef";
 	if (nb >= 16)
 	{
-		len = ft_putnbr_hexa(nb / 16, c);
+		len = ft_putnbrhex(nb / 16, c, ++i);
 		ft_putchar(base[nb % 16]);
 	}
 	else
