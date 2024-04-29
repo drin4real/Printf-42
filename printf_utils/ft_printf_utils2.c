@@ -25,15 +25,15 @@ int	manage_limits(long long nb, char c)
 	return (ft_putchar('0'));
 }
 
-int	ft_putnbrhex(long long nb, char c, int i)
+int	ft_putnbrhex(unsigned long nb, char c, int i)
 {
 	char	*base;
 	int		len;
 
 	len = 0;
-	if ((c == 'p' && (nb == LONG_MIN || nb == (long long)ULONG_MAX))
-		|| (c != 'p' && (nb == LONG_MAX || nb == LONG_MIN
-				|| nb == (long long)ULONG_MAX)))
+	if ((c == 'p' && ((long long)nb == LONG_MIN || nb == ULONG_MAX))
+		|| (c != 'p' && ((long long)nb == LONG_MAX || (long long)nb == LONG_MIN
+				|| nb == ULONG_MAX)))
 		return (manage_limits(nb, c));
 	else if (i == 8 && c != 'p')
 		return (0);

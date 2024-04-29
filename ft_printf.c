@@ -70,3 +70,32 @@ int	ft_printf(const char *s, ...)
 	va_end(ap);
 	return (printed_char);
 }
+/*
+int	main(void)
+{
+	char	*str = "Vere nec si meo adulescenti meo hac existimare descensurum";
+	int		nb = -2147483648;
+	int 	n = -846599;
+	char	c = 'a';
+
+	printf("bytes : %d\n", ft_printf("MINE (%%s)> %s%s%s,\n", str, str, str));
+	printf("bytes : %d\n\n", printf("REAL (%%s)> %s%s%s,\n", str, str, str));
+	printf("bytes : %d\n", ft_printf("MINE (%%d)> %d,\n", nb));
+	printf("bytes : %d\n\n", printf("REAL (%%d)> %d,\n", nb));
+	printf("bytes : %d\n", ft_printf("MINE (%%i)> %i,\n", nb));
+	printf("bytes : %d\n\n", printf("REAL (%%i)> %i,\n", nb));
+	printf("bytes : %d\n", ft_printf("MINE (%%u)> %u,\n", nb));
+	printf("bytes : %d\n\n", printf("REAL (%%u)> %u,\n", nb));
+	printf("bytes : %d\n", ft_printf("MINE (%%x)> %x\n", nb));
+	printf("bytes : %d\n\n", printf("REAL (%%x)> %x\n", nb));
+	printf("bytes : %d\n", ft_printf("MINE (%%X)> %X,\n", LONG_MIN));
+	printf("bytes : %d\n\n", printf("REAL (%%X)> %X,\n", LONG_MIN));
+	printf("bytes : %d\n", ft_printf("MINE (%%p)> %p,\n",ULONG_MAX));
+	printf("bytes : %d\n\n", printf("REAL (%%p)> %p,\n",ULONG_MAX));
+	printf("bytes : %d\n", ft_printf("MINE (%%c)> %c,\n", c));
+	printf("bytes : %d\n\n", printf("REAL (%%c)> %c,\n", c));
+	printf("bytes : %d\n", ft_printf("MINE (%%%%)> %%,\n"));
+	printf("bytes : %d\n\n", printf("REAL (%%%%)> %%,\n"));
+// gcc ft_printf.c printf_utils/ft_printf_utils1.c 
+//printf_utils/ft_printf_utils2.c
+}*/

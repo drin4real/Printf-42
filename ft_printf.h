@@ -24,7 +24,7 @@ char	*ft_strchr(const char *s, int c);
 int		ft_putchar(char c);
 int		ft_putstr(char *s);
 int		ft_putnbr(int n);
-int		ft_putnbrhex(long long nb, char c, int i);
+int		ft_putnbrhex(unsigned long nb, char c, int i);
 int		ft_putuinbr(unsigned int n);
 int		ft_nbrlen(int nb);
 int		manage_limits(long long nb, char c);
