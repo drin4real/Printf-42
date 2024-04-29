@@ -96,6 +96,5 @@ int	main(void)
 	printf("bytes : %d\n\n", printf("REAL (%%c)> %c,\n", c));
 	printf("bytes : %d\n", ft_printf("MINE (%%%%)> %%,\n"));
 	printf("bytes : %d\n\n", printf("REAL (%%%%)> %%,\n"));
-// gcc ft_printf.c printf_utils/ft_printf_utils1.c 
-//printf_utils/ft_printf_utils2.c
+//gcc ft_printf.c printf_utils/ft_printf_utils1.c printf_utils/ft_printf_utils2.c
 }*/

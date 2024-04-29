@@ -1,5 +1,4 @@
-PRINTF_UTILS_PATH = ./printf_utils
-SRCS = ${wildcard *.c} ${wildcard ${PRINTF_UTILS_PATH}/*.c}
+SRCS = ${wildcard *.c}
 OBJS = ${SRCS:.c=.o}
 
 NAME = libftprintf.a
