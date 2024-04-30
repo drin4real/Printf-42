@@ -26,7 +26,7 @@ static int	manage_format(char c, va_list arg)
 		return (ft_putuinbr(va_arg(arg, unsigned int)));
 	else if (c == 'p')
 	{
-		p = va_arg(arg, long);
+		p = va_arg(arg, long long);
 		if (p == 0)
 			return (ft_putstr("(nil)"));
 		else
