@@ -12,43 +12,31 @@
 
 #include "ft_printf.h"
 
-int	manage_limits(long long nb, char c)
+int	ft_handle_adress(unsigned long long p)
 {
-	if (c == 'p' && nb == LONG_MIN)
-		return (ft_putstr("8000000000000000"));
-	else if (c == 'p' && nb == (long long)ULONG_MAX)
-		return (ft_putstr("ffffffffffffffff"));
-	else if ((nb == LONG_MAX || nb == (long long)ULONG_MAX) && c == 'X')
-		return (ft_putstr("FFFFFFFF"));
-	else if ((nb == LONG_MAX || nb == (long long)ULONG_MAX) && c == 'x')
-		return (ft_putstr("ffffffff"));
-	return (ft_putchar('0'));
-}
-
-int	ft_putnbrhex(unsigned long nb, char c, int i)
-{
-	char	*base;
-	int		len;
+	int	len;
 
 	len = 0;
-	if ((c == 'p' && ((long long)nb == LONG_MIN || nb == ULONG_MAX))
-		|| (c != 'p' && ((long long)nb == LONG_MAX || (long long)nb == LONG_MIN
-				|| nb == ULONG_MAX)))
-		return (manage_limits(nb, c));
-	else if (i == 8 && c != 'p')
-		return (0);
-	if (c == 'X')
-		base = "0123456789ABCDEF";
+	if (p == 0)
+		return (ft_putstr("(nil)"));
+	len += ft_putstr("0x");
+	len += ft_putnbrbase(p, "0123456789abcdef", 16);
+	return (len);
+}
+
+int	ft_putnbrbase(unsigned long long n, char *base, unsigned int lenbase)
+{
+	int	len;
+
+	len = 0;
+	if (n < (unsigned long long)lenbase)
+		return (ft_putchar(base[n]));
 	else
-		base = "0123456789abcdef";
-	if (nb >= 16)
 	{
-		len = ft_putnbrhex(nb / 16, c, ++i);
-		ft_putchar(base[nb % 16]);
+		len = ft_putnbrbase(n / lenbase, base, lenbase) + 1;
+		ft_putnbrbase(n % lenbase, base, lenbase);
 	}
-	else
-		ft_putchar(base[nb]);
-	return (len + 1);
+	return (len);
 }
 
 int	ft_putnbr(int n)

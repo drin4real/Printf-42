@@ -24,10 +24,9 @@ char	*ft_strchr(const char *s, int c);
 int		ft_putchar(char c);
 int		ft_putstr(char *s);
 int		ft_putnbr(int n);
-int		ft_putnbrhex(unsigned long nb, char c, int i);
+int		ft_putnbrbase(unsigned long long n, char *base, unsigned int lenbase);
 int		ft_putuinbr(unsigned int n);
 int		ft_nbrlen(int nb);
-int		manage_limits(long long nb, char c);
-char	*ft_strdup(const char *s);
+int		ft_handle_adress(unsigned long long p);
 
 #endif
